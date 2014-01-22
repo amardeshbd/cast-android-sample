@@ -14,20 +14,21 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal" >
-   
     <TextView
         android:id="@+id/play_status_text"
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="wrap_content"
         android:fontFamily="Roboto"
         android:textColor="@color/black"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:background="@color/background2"
-        android:layout_gravity="center_horizontal" />    
-</LinearLayout>
+        android:layout_gravity="center_horizontal" />
+
+</ScrollView>

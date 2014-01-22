@@ -76,6 +76,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
     private MediaRouter.Callback mMediaRouterCallback;
     private MediaSelectionDialog mMediaSelectionDialog;
     private MediaProtocolCommand mStatus;
+    private MediaRouteStateChangeListener mMediaRouteStateChangeListener;
 
     private ImageButton mPlayPauseButton;
     private ImageButton mStopButton;
@@ -260,6 +261,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
     public void onDeviceAvailable(CastDevice device, String myString,
             MediaRouteStateChangeListener listener) {
         mSelectedDevice = device;
+        mMediaRouteStateChangeListener = listener;
         logVIfEnabled(TAG, "Available device found: " + myString);
         openSession();
     }
@@ -419,7 +421,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
 
             @Override
             public void onSessionStarted(ApplicationMetadata appMetadata) {
-                logVIfEnabled(TAG, "Getting channel after session start");
+                logVIfEnabled(TAG, "Getting channel after session start - appMetadata=" + appMetadata);
                 ApplicationChannel channel = mSession.getChannel();
                 if (channel == null) {
                     Log.e(TAG, "channel = null");
@@ -454,11 +456,6 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
         mStopButton.setEnabled(true);
         try {
             logVIfEnabled(TAG, "Starting session with app name " + getString(R.string.app_name));
-            
-            // TODO: To run your own copy of the receiver, you will need to set app_name in 
-            // /res/strings.xml to your own appID, and then upload the provided receiver 
-            // to the url that you whitelisted for your app.
-            // The current value of app_name is "YOUR_APP_ID_HERE".
             mSession.startSession(getString(R.string.app_name));
         } catch (IOException e) {
             Log.e(TAG, "Failed to open session", e);
@@ -477,7 +474,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
 
                 @Override
                 public void onCompleted(MediaProtocolCommand mPCommand) {
-                    logVIfEnabled(TAG, "Load completed - starting playback");
+                    logVIfEnabled(TAG, "Load completed - starting playback - mPCommand=" + mPCommand);
                     mPlayPauseButton.setImageResource(R.drawable.pause_button);
                     mPlayButtonShowsPlay = false;
                     onSetVolume(0.5);
@@ -485,7 +482,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
 
                 @Override
                 public void onCancelled(MediaProtocolCommand mPCommand) {
-                    logVIfEnabled(TAG, "Load cancelled");
+                    logVIfEnabled(TAG, "Load cancelled - mPCommand=" + mPCommand);
                 }
             });
 
@@ -511,6 +508,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
      * Updates the status of the currently playing video in the dedicated message view.
      */
     public void updateStatus() {
+        //Log.d(TAG, "Status Runner - updateStatus() - mMessageStream=" + mMessageStream);
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -532,8 +530,13 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
                         currentStatus += "Volume set at: "
                                 + (mMessageStream.getVolume() * 100) + "%\n";
                         currentStatus += "requestStatus: " + mStatus.getType() + "\n";
+                        currentStatus += "ContentId: " + mMessageStream.getContentId() + "\n";
+                        currentStatus += "ContentInfo: " + mMessageStream.getContentInfo() + "\n"; // Gives null NullPointerException
+                        currentStatus += "Namespace: " + mMessageStream.getNamespace() + "\n";
+
                         mStatusText.setText(currentStatus);
                     } else {
+                        Log.d(TAG, "Status Runner - updateStatus() - unable to update - Stream NOT active");
                         mStatusText.setText(getResources().getString(R.string.tap_icon));
                     }
                 } catch (Exception e) {
