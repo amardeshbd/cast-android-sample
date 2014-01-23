@@ -19,6 +19,8 @@ package com.example.castsample;
 import java.io.IOException;
 
 import com.example.castsample.mediaroutedialog.SampleMediaRouteDialogFactory;
+import com.example.castsample.mediastream.CustomMediaProtocolMessageStream;
+import com.example.castsample.util.ObjectInfo;
 import com.google.cast.ApplicationChannel;
 import com.google.cast.ApplicationMetadata;
 import com.google.cast.ApplicationSession;
@@ -416,7 +418,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
         mSession.setApplicationOptions(flags);
 
         logVIfEnabled(TAG, "Beginning session with context: " + mCastContext);
-        logVIfEnabled(TAG, "The session to begin: " + mSession);
+        logVIfEnabled(TAG, "The session to begin: " + ObjectInfo.toString(mSession));
         mSession.setListener(new com.google.cast.ApplicationSession.Listener() {
 
             @Override
@@ -428,7 +430,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
                     return;
                 }
                 logVIfEnabled(TAG, "Creating and attaching Message Stream");
-                mMessageStream = new MediaProtocolMessageStream();
+                mMessageStream = new CustomMediaProtocolMessageStream();
                 channel.attachMessageStream(mMessageStream);
 
                 if (mMessageStream.getPlayerState() == null) {
@@ -479,7 +481,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
 
                 @Override
                 public void onCompleted(MediaProtocolCommand mPCommand) {
-                    logVIfEnabled(TAG, "Load completed - starting playback - mPCommand=" + mPCommand);
+                    logVIfEnabled(TAG, "Load completed - starting playback - mPCommand=" + ObjectInfo.toString(mPCommand));
                     mPlayPauseButton.setImageResource(R.drawable.pause_button);
                     mPlayButtonShowsPlay = false;
                     onSetVolume(0.5);
@@ -487,7 +489,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
 
                 @Override
                 public void onCancelled(MediaProtocolCommand mPCommand) {
-                    logVIfEnabled(TAG, "Load cancelled - mPCommand=" + mPCommand);
+                    logVIfEnabled(TAG, "Load cancelled - mPCommand=" + ObjectInfo.toString(mPCommand));
                 }
             });
 
@@ -541,7 +543,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
 
                         mStatusText.setText(currentStatus);
                     } else {
-                        Log.d(TAG, "Status Runner - updateStatus() - unable to update - Stream NOT active");
+                        //Log.d(TAG, "Status Runner - updateStatus() - unable to update - Stream NOT active");
                         mStatusText.setText(getResources().getString(R.string.tap_icon));
                     }
                 } catch (Exception e) {
