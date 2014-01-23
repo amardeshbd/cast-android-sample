@@ -107,7 +107,7 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
         mMediaRouter = MediaRouter.getInstance(getApplicationContext());
         mMediaRouteSelector = MediaRouteHelper
                 .buildMediaRouteSelector(MediaRouteHelper.CATEGORY_CAST,
-                        getResources().getString(R.string.app_name), null);
+                        getResources().getString(R.string.chromecast_app_id), null);
 
         mMediaRouteButton = (MediaRouteButton) findViewById(R.id.media_route_button);
         mMediaRouteButton.setRouteSelector(mMediaRouteSelector);
@@ -455,8 +455,13 @@ public class CastSampleActivity extends FragmentActivity implements MediaRouteAd
         mPlayPauseButton.setEnabled(true);
         mStopButton.setEnabled(true);
         try {
-            logVIfEnabled(TAG, "Starting session with app name " + getString(R.string.app_name));
-            mSession.startSession(getString(R.string.app_name));
+            logVIfEnabled(TAG, "Starting session with app name " + getString(R.string.app_name) + " & cast-app id " + getString(R.string.chromecast_app_id));
+            
+            // TODO: To run your own copy of the receiver, you will need to set app_name in 
+            // /res/strings.xml to your own appID, and then upload the provided receiver 
+            // to the url that you whitelisted for your app.
+            // The current value of app_name is "YOUR_APP_ID_HERE".
+            mSession.startSession(getString(R.string.chromecast_app_id));
         } catch (IOException e) {
             Log.e(TAG, "Failed to open session", e);
         }
