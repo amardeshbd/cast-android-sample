@@ -58,6 +58,27 @@ public class MediaAdapter extends BaseAdapter {
         mVideos.add(new CastMedia(mContext.getString(R.string.reel_2012), "http://commondatastorage.googleapis.com/gtv-videos-bucket/reel_2012_1280x720.mp4"));
         mVideos.add(new CastMedia(mContext.getString(R.string.io_2012_countdown_music), "http://commondatastorage.googleapis.com/gtv-videos-bucket/Google%20IO%202011-%2030%20min%20Countdown.mp3"));
         mVideos.add(new CastMedia(mContext.getString(R.string.io_2011_walkout_music), "http://commondatastorage.googleapis.com/gtv-videos-bucket/Google%20IO%202011%2045%20Min%20Walk%20Out.mp3"));
+
+        // Adds more smoothstreaming video clips.
+        addSmoothStreamingVideos();
+    }
+
+    /**
+     * Adds additional smoothstreaming videos for testing.
+     */
+    private void addSmoothStreamingVideos() {
+        /**
+         * Smooth streaming URLS from http://playready.directtaps.net/smoothstreaming/ <br/>
+         * Unless otherwise stated, all content URLs from the playready.directtaps.net site are the property of http://playready.directtaps.net/ site.
+         */
+        mVideos.add(new CastMedia("SSW 720p H264 CLEAR (SuperSpeedWay, 720p-Manifest, H264 AAC, no encryption)","http://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest"));
+        mVideos.add(new CastMedia("SSW 720p H264 CLEAR (SuperSpeedWay, 720p-230K, H264 AAC, no encryption)","http://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720_230.ismv"));
+        mVideos.add(new CastMedia("SSW 720p H264 CLEAR (SuperSpeedWay, 720p-688K, H264 AAC, no encryption)","http://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720_688.ismv"));
+        mVideos.add(new CastMedia("SSW 720p H264 CLEAR (SuperSpeedWay, 720p-1427K, H264 AAC, no encryption)","http://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720_1427.ismv"));
+        mVideos.add(new CastMedia("SSW 720p H264 PLAYREADY (SuperSpeedWay, 720p-Manifest, H264 AAC, with encryption)", "http://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720.ism/Manifest"));
+        mVideos.add(new CastMedia("SSW 720p H264 PLAYREADY (SuperSpeedWay, 720p-230K, H264 AAC, with encryption)", "http://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720_230.ismv"));
+        mVideos.add(new CastMedia("SSW 720p H264 PLAYREADY (SuperSpeedWay, 720p-688K, H264 AAC, with encryption)", "http://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720_688.ismv"));
+        mVideos.add(new CastMedia("SSW 720p H264 PLAYREADY (SuperSpeedWay, 720p-1427K, H264 AAC, with encryption)", "http://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720_1427.ismv"));
     }
 
     @Override
