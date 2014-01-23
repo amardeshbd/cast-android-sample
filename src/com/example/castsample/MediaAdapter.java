@@ -61,6 +61,9 @@ public class MediaAdapter extends BaseAdapter {
 
         // Adds more smoothstreaming video clips.
         addSmoothStreamingVideos();
+
+        // Adds mpeg-dash sample video clips.
+        addMpegDashVideos();
     }
 
     /**
@@ -79,6 +82,23 @@ public class MediaAdapter extends BaseAdapter {
         mVideos.add(new CastMedia("SSW 720p H264 PLAYREADY (SuperSpeedWay, 720p-230K, H264 AAC, with encryption)", "http://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720_230.ismv"));
         mVideos.add(new CastMedia("SSW 720p H264 PLAYREADY (SuperSpeedWay, 720p-688K, H264 AAC, with encryption)", "http://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720_688.ismv"));
         mVideos.add(new CastMedia("SSW 720p H264 PLAYREADY (SuperSpeedWay, 720p-1427K, H264 AAC, with encryption)", "http://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720_1427.ismv"));
+    }
+
+    /**
+     * Adds MPEG-DASH video clips.
+     */
+    private void addMpegDashVideos() {
+        /**
+         * MPEG-DASH URLS from http://dash-mse-test.appspot.com/media.html <br/>
+         * Unless otherwise stated, all content URLs from the dash-mse-test.appspot.com site are the property of YouTube.<br/>
+         * Please refer to http://dash-mse-test.appspot.com/release-notes.html for more information.
+         */
+        mVideos.add(new CastMedia("MPEG-DASH - CAR - mpd file", "http://yt-dash-mse-test.commondatastorage.googleapis.com/media/car-20120827-manifest.mpd"));
+        mVideos.add(new CastMedia("MPEG-DASH - CAR - mp4 file", "http://yt-dash-mse-test.commondatastorage.googleapis.com/media/car-20120827-85.mp4"));
+        mVideos.add(new CastMedia("MPEG-DASH - CAR_CENC - mpd file", "http://yt-dash-mse-test.commondatastorage.googleapis.com/media/car_cenc-20120827-manifest.mpd"));
+        mVideos.add(new CastMedia("MPEG-DASH - FEELINGS_VP9 - mpd file", "http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-manifest.mpd"));
+        mVideos.add(new CastMedia("MPEG-DASH - FEELINGS_VP9 - webm file", "http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-171.webm"));
+        mVideos.add(new CastMedia("MPEG-DASH - MOTION - mpd file", "http://yt-dash-mse-test.commondatastorage.googleapis.com/media/motion-20120802-manifest.mpd"));
     }
 
     @Override
